@@ -46,6 +46,8 @@ brew "borders"
 
 # Language and build tooling
 brew "mise"
+brew "nodenv"
+brew "pyenv"
 brew "delve"
 brew "stylua"
 
@@ -55,6 +57,9 @@ brew "stylua"
 # explicit trust before it loads a non-official tap.
 tap "nikitabobko/tap", trusted: { cask: "aerospace" }
 cask "ghostty"
+cask "vivaldi"
+cask "chatgpt"
+cask "discord"
 cask "docker-desktop"
 cask "intellij-idea"
 cask "visual-studio-code"

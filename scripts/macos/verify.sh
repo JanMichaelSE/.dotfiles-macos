@@ -155,9 +155,9 @@ if [[ "${check_installed}" == true ]]; then
   for command_name in \
     brew git gh lazygit delta nvim tmux bat eza fd fzf rg tree \
     tree-sitter jq wget shellcheck htop trash yazi zoxide ffmpeg 7zz \
-    pdftotext magick lazydocker sshs kubectl minikube k9s mise dlv \
+    pdftotext magick lazydocker sshs kubectl minikube k9s mise nodenv pyenv dlv \
     mvn gradle stylua node npm python3 go rustc cargo java terraform terragrunt \
-    tsc eslint bash-language-server auggie codex aerospace borders; do
+    tsc eslint bash-language-server codex aerospace borders; do
     require_command "${command_name}"
   done
 
@@ -182,7 +182,7 @@ if [[ "${check_installed}" == true ]]; then
   fi
 
   for app_name in \
-    Ghostty.app Docker.app "IntelliJ IDEA.app" "Visual Studio Code.app" \
+    Ghostty.app Vivaldi.app ChatGPT.app Discord.app Docker.app "IntelliJ IDEA.app" "Visual Studio Code.app" \
     Bruno.app Notion.app WhatsApp.app Spotify.app Maccy.app macshot.app \
     Raycast.app Rectangle.app AeroSpace.app logioptionsplus.app Intent.app; do
     require_app "${app_name}"

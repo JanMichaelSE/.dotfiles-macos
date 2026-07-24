@@ -111,10 +111,11 @@ source-controlled configuration is `config/borders/bordersrc`, linked to
 
 - `mise` for Node.js LTS, the latest Python, Go, Maven, Gradle, Terraform, and
   Terragrunt, plus stable Rust and Temurin Java 25 LTS
+- `nodenv` and `pyenv` for projects using `.node-version` and `.python-version`
 - `delve` for Go debugging
 - npm developer commands used by the editor: TypeScript, ESLint, and Bash
   Language Server
-- Auggie CLI and OpenAI Codex CLI, installed as npm tools through `mise`
+- OpenAI Codex CLI, installed as an npm tool through `mise`
 
 Runtime versions live in `config/mise/config.toml`; use that file rather than a
 system-wide runtime installation or a `curl | shell` version manager.
@@ -122,6 +123,9 @@ system-wide runtime installation or a `curl | shell` version manager.
 ### Applications
 
 - Ghostty
+- Vivaldi
+- ChatGPT
+- Discord
 - Docker Desktop
 - IntelliJ IDEA Ultimate
 - Visual Studio Code
@@ -154,7 +158,7 @@ Intent is currently an Apple Silicon public beta distributed by Augment as a
 vendor DMG rather than a Homebrew cask. Download it from
 <https://www.intentapp.dev> and drag `Intent.app` into
 `/Applications`; installed verification reports a warning until it is present.
-The Auggie and Codex CLIs are installed automatically with the other npm tools.
+The Codex CLI is installed automatically with the other npm tools.
 
 Logi Options+ configures supported Logitech devices such as the MX Master 3.
 Its installer requires administrator approval, and macOS must be restarted after
