@@ -33,6 +33,8 @@ on-window-detected = [
   { if.app-id = 'com.mitchellh.ghostty', run = 'move-node-to-workspace 1' },
   { if.app-id = 'com.vivaldi.Vivaldi', run = 'move-node-to-workspace 2' },
   { if.app-id = 'notion.id', run = 'move-node-to-workspace 3' },
+  { if.app-id = 'com.hnc.Discord', run = 'move-node-to-workspace 3' },
+  { if.app-id = 'com.spotify.client', run = 'move-node-to-workspace 4' },
 ]
 
 # Add subtle visual separation between windows and monitor edges. Adjust these
