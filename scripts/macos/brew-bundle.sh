@@ -36,6 +36,8 @@ unmanaged_app_name() {
 
   case "${cask}" in
     ghostty) printf '%s\n' 'Ghostty.app' ;;
+    vivaldi) printf '%s\n' 'Vivaldi.app' ;;
+    chatgpt) printf '%s\n' 'ChatGPT.app' ;;
     docker-desktop) printf '%s\n' 'Docker.app' ;;
     intellij-idea) printf '%s\n' 'IntelliJ IDEA.app' ;;
     visual-studio-code) printf '%s\n' 'Visual Studio Code.app' ;;

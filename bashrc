@@ -88,7 +88,18 @@ system-updater() {
 }
 
 # Runtime and interactive integrations are optional during first bootstrap.
+export PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
+export NODENV_ROOT="${NODENV_ROOT:-$HOME/.nodenv}"
+for directory in "$PYENV_ROOT/bin" "$NODENV_ROOT/bin"; do
+  case ":$PATH:" in
+    *":$directory:"*) ;;
+    *) PATH="$directory:$PATH" ;;
+  esac
+done
+unset directory
 command -v mise >/dev/null 2>&1 && eval "$(mise activate bash)"
+command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init - bash)"
+command -v nodenv >/dev/null 2>&1 && eval "$(nodenv init - bash)"
 command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)"
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
 

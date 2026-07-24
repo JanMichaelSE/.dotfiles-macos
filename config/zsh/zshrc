@@ -107,16 +107,17 @@ system-updater() {
 }
 
 # Runtime and interactive integrations are optional during first bootstrap.
+# Keep pyenv and nodenv available for projects that use their native version files.
+export PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
+export NODENV_ROOT="${NODENV_ROOT:-$HOME/.nodenv}"
+path=("$PYENV_ROOT/bin" "$NODENV_ROOT/bin" $path)
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
+(( $+commands[pyenv] )) && eval "$(pyenv init - zsh)"
+(( $+commands[nodenv] )) && eval "$(nodenv init - zsh)"
 (( $+commands[fzf] )) && eval "$(fzf --zsh)"
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 
 # To customize the prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -r "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
 [[ ":${PATH}:" != *":/opt/homebrew/opt/libpq/bin:"* ]] && PATH="/opt/homebrew/opt/libpq/bin:${PATH}"
-export PYENV_ROOT=$HOME/.pyenv
-[[ ":${PATH}:" != *":$HOME/.pyenv/bin:"* ]] && PATH="$HOME/.pyenv/bin:${PATH}"
-[[ ":${PATH}:" != *":$HOME/.pyenv/shims:"* ]] && PATH="$HOME/.pyenv/shims:${PATH}"
-if ! hash pyenv; then eval $(pyenv init -); fi
 [[ ":${PATH}:" != *":$HOME/.local/bin:"* ]] && PATH="$HOME/.local/bin:${PATH}"
-if ! hash nodenv; then eval $(nodenv init -); fi
