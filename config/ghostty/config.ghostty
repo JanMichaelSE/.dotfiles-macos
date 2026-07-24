@@ -1,0 +1,13 @@
+# Ghostty configuration for macOS.
+font-family = CaskaydiaCove Nerd Font
+font-size = 14
+
+background-opacity = 0.95
+background-blur = 20
+
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
+
+# Option should emit Alt sequences for tmux and Neovim bindings.
+macos-option-as-alt = true

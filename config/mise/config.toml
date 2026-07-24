@@ -1,0 +1,18 @@
+[tools]
+node = "lts"
+python = "latest"
+go = "latest"
+rust = "stable"
+java = "temurin-25"
+maven = "latest"
+gradle = "latest"
+terraform = "latest"
+terragrunt = "latest"
+
+# Keep ecosystem-native command-line tools beside the Node runtime that runs
+# them. Native tools such as tree-sitter and Stylua are installed by Homebrew.
+"npm:typescript" = "latest"
+"npm:eslint" = "latest"
+"npm:bash-language-server" = "latest"
+"npm:@augmentcode/auggie" = "latest"
+"npm:@openai/codex" = "latest"

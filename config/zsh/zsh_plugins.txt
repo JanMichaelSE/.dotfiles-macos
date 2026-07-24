@@ -1,0 +1,8 @@
+# Antidote bundles. Syntax highlighting must remain last.
+zap-zsh/vim
+zap-zsh/supercharge
+aloxaf/fzf-tab
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-history-substring-search
+romkatv/powerlevel10k
+zsh-users/zsh-syntax-highlighting

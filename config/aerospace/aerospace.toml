@@ -1,0 +1,115 @@
+# AeroSpace reads this file from ~/.config/aerospace/aerospace.toml. Dotbot
+# links that path to this repository, which is the single source of truth.
+# Reference: https://nikitabobko.github.io/AeroSpace/guide
+
+config-version = 2
+start-at-login = true
+auto-reload-config = true
+
+# Restored windows can arrive just after AeroSpace starts. Once they have been
+# discovered, reset each persistent workspace to a clean tiled tree and give
+# every tile an equal share of space.
+after-startup-command = ['''exec-and-forget
+  sleep 1
+  for workspace in 1 2 3 4 5; do
+    aerospace flatten-workspace-tree --workspace "$workspace"
+    aerospace layout --workspace "$workspace" --root tiles
+    aerospace balance-sizes --workspace "$workspace"
+  done
+''', 'exec-and-forget borders']
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+# Keep the first five workspaces available even when they are empty.
+persistent-workspaces = ['1', '2', '3', '4', '5']
+
+# Route applications to their designated workspaces whenever AeroSpace detects
+# a window, including when applications are restored after a login.
+on-window-detected = [
+  { if.app-id = 'com.openai.codex', run = 'move-node-to-workspace 1' },
+  { if.app-id = 'com.mitchellh.ghostty', run = 'move-node-to-workspace 1' },
+  { if.app-id = 'com.vivaldi.Vivaldi', run = 'move-node-to-workspace 2' },
+  { if.app-id = 'com.microsoft.teams2', run = 'move-node-to-workspace 3' },
+  { if.app-id = 'notion.id', run = 'move-node-to-workspace 3' },
+]
+
+# Add subtle visual separation between windows and monitor edges. Adjust these
+# values here; this file is linked into ~/.config/aerospace/ by Dotbot.
+gaps.inner.horizontal = 8
+gaps.inner.vertical = 8
+gaps.outer.left = 8
+gaps.outer.bottom = 8
+gaps.outer.top = 8
+gaps.outer.right = 8
+
+# Workspace 3 belongs on the external display when it is connected. When the
+# laptop is used by itself, it safely falls back to the main (built-in) display.
+[workspace-to-monitor-force-assignment]
+3 = ['secondary', 'main']
+
+# AeroSpace is launched as a GUI app, so make Homebrew-installed integration
+# commands available to callbacks and `exec-*` bindings.
+[exec]
+inherit-env-vars = true
+
+[exec.env-vars]
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
+
+[mode.main.binding]
+# Layouts
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+# Focus and move windows (vim-style)
+alt-h = 'focus --boundaries all-monitors-outer-frame left'
+alt-j = 'focus --boundaries all-monitors-outer-frame down'
+alt-k = 'focus --boundaries all-monitors-outer-frame up'
+alt-l = 'focus --boundaries all-monitors-outer-frame right'
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+alt-ctrl-shift-h = 'move-node-to-monitor --focus-follows-window left'
+alt-ctrl-shift-l = 'move-node-to-monitor --focus-follows-window right'
+
+# Resize the focused window
+alt-minus = 'resize smart -50'
+alt-equal = 'resize smart +50'
+
+# Workspaces and moving windows between them
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-shift-1 = 'move-node-to-workspace 1; workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2; workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3; workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4; workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5; workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6; workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7; workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8; workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9; workspace 9'
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# Enter service mode for maintenance actions.
+alt-shift-semicolon = 'mode service'
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']

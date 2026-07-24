@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly DOTFILES_DIR
+readonly DOTBOT_DIR="${DOTFILES_DIR}/dotbot"
+readonly CONFIG_FILE="${DOTFILES_DIR}/install.conf.yaml"
+
+if [[ "${1:-}" == "--verify" ]]; then
+  shift
+  exec "${DOTFILES_DIR}/scripts/macos/verify.sh" "$@"
+fi
+
+run_stage() {
+  local stage_name="$1"
+  local status
+  shift
+
+  printf '\n==> %s\n' "${stage_name}"
+
+  if "$@"; then
+    return 0
+  else
+    status=$?
+    printf '\nError: %s failed (exit status %s).\n' \
+      "${stage_name}" "${status}" >&2
+    return "${status}"
+  fi
+}
+
+load_homebrew_environment() {
+  local shell_environment
+
+  if ! shell_environment="$(/opt/homebrew/bin/brew shellenv)"; then
+    printf 'Error: Homebrew could not generate its shell environment.\n' >&2
+    return 1
+  fi
+
+  eval "${shell_environment}"
+}
+
+run_stage 'Checking macOS prerequisites' \
+  "${DOTFILES_DIR}/scripts/macos/preflight.sh"
+
+run_stage 'Ensuring Homebrew is installed' \
+  "${DOTFILES_DIR}/scripts/macos/bootstrap-homebrew.sh"
+
+# Homebrew uses /opt/homebrew on Apple Silicon. Make its commands available to
+# the rest of this process immediately; shell startup files handle future shells.
+run_stage 'Loading the Homebrew environment' load_homebrew_environment
+
+run_stage 'Installing Homebrew packages and applications' \
+  "${DOTFILES_DIR}/scripts/macos/brew-bundle.sh"
+
+export MISE_GLOBAL_CONFIG_FILE="${DOTFILES_DIR}/config/mise/config.toml"
+export MISE_GLOBAL_CONFIG_ROOT="${HOME}"
+run_stage 'Installing language runtimes and npm tools with mise' \
+  "${DOTFILES_DIR}/scripts/macos/mise-install.sh"
+
+# Dotbot requires Python. mise exec exposes the newly installed runtime without
+# evaluating interactive shell activation code in the installer process.
+run_stage 'Backing up conflicts and linking dotfiles' \
+  /opt/homebrew/bin/mise exec -- "${DOTBOT_DIR}/bin/dotbot" \
+  --base-directory "${DOTFILES_DIR}" \
+  --config-file "${CONFIG_FILE}" \
+  --exit-on-failure \
+  "$@"
+
+run_stage 'Initializing tmux and Neovim plugins' \
+  "${DOTFILES_DIR}/scripts/macos/post-install.sh"
+
+run_stage 'Verifying the completed installation' \
+  "${DOTFILES_DIR}/scripts/macos/verify.sh" --installed
+
+printf '\nmacOS dotfiles installation complete. Open a new terminal to load Zsh.\n'
