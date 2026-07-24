@@ -1,0 +1,38 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- shell:
+    - command: scripts/macos/backup-conflicts.sh
+      description: Backing up existing dotfiles that are not symlinks
+      stdout: true
+      stderr: true
+
+- create:
+    - ~/Developer
+    - ~/Projects
+    - ~/Work/personal
+    - ~/Downloads
+    - ~/Pictures
+
+- link:
+    ~/.bash_profile: config/bash/bash_profile
+    ~/.bashrc: bashrc
+    ~/.zprofile: config/zsh/zprofile
+    ~/.zshrc: config/zsh/zshrc
+    ~/.zsh_plugins.txt: config/zsh/zsh_plugins.txt
+    ~/.p10k.zsh: config/p10k/p10k.zsh
+    ~/.config/nvim: config/nvim
+    ~/.config/ghostty/config.ghostty: config/ghostty/config.ghostty
+    ~/.ssh/config: config/ssh/config
+    ~/.tmux.conf: config/tmux/tmux.conf
+    ~/.gitconfig: config/git/gitconfig
+    ~/.gitignore_global: config/git/gitignore_global
+    ~/.config/lazygit/config.yml: config/lazygit/config.yml
+    ~/.config/surfingkeys/.surfingkeys.js: config/surfingkeys/surfingkeys.js
+    ~/.config/bat: bat
+    ~/.config/mise/config.toml: config/mise/config.toml
+    ~/.config/aerospace/aerospace.toml: config/aerospace/aerospace.toml
+    ~/.config/borders/bordersrc: config/borders/bordersrc
+    ~/Pictures/Wallpapers: config/backdrop/wallpapers

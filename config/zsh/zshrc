@@ -1,0 +1,137 @@
+# Enable Powerlevel10k instant prompt. Keep this close to the top of ~/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Support interactive shells started without a login shell.
+if (( ! $+commands[brew] )) && [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export GOPATH="${GOPATH:-$HOME/go}"
+export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-$EDITOR}"
+export PAGER="${PAGER:-less}"
+export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
+export P2020_IDENTITY_CLIENT_ID=w3HJcYMCH9pZ
+export P2020_IDENTITY_CLIENT_SECRET=z6yccixe070A4XqKFRKQ
+
+typeset -U path PATH
+path=("$HOME/.local/bin" "$HOME/bin" "$GOPATH/bin" "$HOME/.cargo/bin" $path)
+export PATH
+
+# Completion must be initialized before fzf-tab is loaded by Antidote.
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+mkdir -p "$XDG_CACHE_HOME/zsh"
+autoload -Uz compinit
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
+
+# Antidote is installed by Homebrew; the plugin list is source-controlled.
+antidote_script="${HOMEBREW_PREFIX:-/opt/homebrew}/opt/antidote/share/antidote/antidote.zsh"
+plugins_file="${ZDOTDIR:-$HOME}/.zsh_plugins.txt"
+if [[ -r "$antidote_script" && -r "$plugins_file" ]]; then
+  source "$antidote_script"
+  antidote load "$plugins_file"
+fi
+unset antidote_script plugins_file
+
+# Command history is durable and shared across terminal windows.
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=200000
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+unsetopt BEEP
+
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+if (( $+widgets[history-substring-search-up] && $+widgets[history-substring-search-down] )); then
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+  bindkey '^P' history-substring-search-up
+  bindkey '^N' history-substring-search-down
+fi
+
+if (( $+commands[eza] )); then
+  alias ls='eza --icons=auto --group-directories-first'
+  alias ll='eza --long --header --icons=auto --group-directories-first'
+  alias lla='eza --long --all --header --git --icons=auto --group-directories-first'
+fi
+(( $+commands[bat] )) && alias cat='bat'
+alias c='clear'
+alias g='git'
+alias lg='lazygit'
+alias tree='tree -I ".git|node_modules"'
+
+mkcd() {
+  mkdir -p -- "$@" && cd -- "${@[-1]}"
+}
+
+# Open IntelliJ with macOS Launch Services, optionally passing files/directories.
+ide() {
+  if (( $# == 0 )); then
+    open -a "IntelliJ IDEA"
+  else
+    open -a "IntelliJ IDEA" "$@"
+  fi
+}
+
+# Let Yazi change the current shell's directory when it exits.
+y() {
+  local tmp cwd yazi_status
+  tmp="$(mktemp -t yazi-cwd.XXXXXX)" || return 1
+  command yazi "$@" --cwd-file="$tmp"
+  yazi_status=$?
+  if cwd="$(command cat -- "$tmp")" && [[ -n "$cwd" && "$cwd" != "$PWD" ]]; then
+    builtin cd -- "$cwd"
+  fi
+  command rm -f -- "$tmp"
+  return "$yazi_status"
+}
+
+system-updater() {
+  if (( ! $+commands[brew] )); then
+    print -u2 'Homebrew is not installed. Run the dotfiles installer first.'
+    return 1
+  fi
+  brew update && brew upgrade && brew cleanup || return
+  if (( $+commands[mise] )); then
+    mise upgrade
+  fi
+}
+
+# Runtime and interactive integrations are optional during first bootstrap.
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
+(( $+commands[fzf] )) && eval "$(fzf --zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+
+# To customize the prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -r "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
+[[ ":${PATH}:" != *":/Users/ja033048/.local/bin:"* ]] && PATH="/Users/ja033048/.local/bin:${PATH}"
+export JAVA_HOME=/Users/ja033048/.bootstrap/cots/java/default
+[[ ":${PATH}:" != *":/Users/ja033048/.bootstrap/cots/java/default/bin:"* ]] && PATH="/Users/ja033048/.bootstrap/cots/java/default/bin:${PATH}"
+export M2_HOME=/Users/ja033048/.bootstrap/cots/maven/default
+[[ ":${PATH}:" != *":/Users/ja033048/.bootstrap/cots/maven/default/bin:"* ]] && PATH="/Users/ja033048/.bootstrap/cots/maven/default/bin:${PATH}"
+[[ ":${PATH}:" != *":/Users/ja033048/.bootstrap/cots/gradle/default/bin:"* ]] && PATH="/Users/ja033048/.bootstrap/cots/gradle/default/bin:${PATH}"
+[[ ":${PATH}:" != *":/Users/ja033048/.tfenv/bin:"* ]] && PATH="/Users/ja033048/.tfenv/bin:${PATH}"
+[[ ":${PATH}:" != *":/Users/ja033048/.tgenv/bin:"* ]] && PATH="/Users/ja033048/.tgenv/bin:${PATH}"
+[[ ":${PATH}:" != *":/opt/homebrew/opt/libpq/bin:"* ]] && PATH="/opt/homebrew/opt/libpq/bin:${PATH}"
+export PYENV_ROOT=$HOME/.pyenv
+[[ ":${PATH}:" != *":$HOME/.pyenv/bin:"* ]] && PATH="$HOME/.pyenv/bin:${PATH}"
+[[ ":${PATH}:" != *":$HOME/.pyenv/shims:"* ]] && PATH="$HOME/.pyenv/shims:${PATH}"
+if ! hash pyenv; then eval $(pyenv init -); fi
+[[ ":${PATH}:" != *":$HOME/.local/bin:"* ]] && PATH="$HOME/.local/bin:${PATH}"
+[[ ":${PATH}:" != *":/Users/ja033048/.nodenv/bin:"* ]] && PATH="/Users/ja033048/.nodenv/bin:${PATH}"
+[[ ":${PATH}:" != *":/Users/ja033048/.nodenv/shims:"* ]] && PATH="/Users/ja033048/.nodenv/shims:${PATH}"
+if ! hash nodenv; then eval $(nodenv init -); fi
+export KUBECONFIG=/Users/ja033048/.kube/kubeconfig
+[[ ":${PATH}:" != *":/Users/ja033048/.kube/kubeconfig:"* ]] && PATH="/Users/ja033048/.kube/kubeconfig:${PATH}"
+export PGPASSFILE=/Users/ja033048/.ssh/bootstrap/.pgpass

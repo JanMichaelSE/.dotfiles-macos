@@ -1,0 +1,23 @@
+# ~/.zprofile: login environment for Apple Silicon macOS.
+
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export GOPATH="${GOPATH:-$HOME/go}"
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
+export PAGER="less"
+
+typeset -U path PATH
+path=(
+  "$HOME/.local/bin"
+  "$HOME/bin"
+  "$GOPATH/bin"
+  "$HOME/.cargo/bin"
+  $path
+)
+export PATH

@@ -1,0 +1,30 @@
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = nvim
+	ignorecase = false
+	autocrlf = false
+[push]
+	default = simple
+[color]
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	grep = auto
+	ui = auto
+[user]
+	name = Jan Montalvo
+	email = 55473580+JanMichaelSE@users.noreply.github.com
+[init]
+	defaultBranch = main
+[credential]
+	helper = osxkeychain
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://github.digitalglobe.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
