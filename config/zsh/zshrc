@@ -16,8 +16,6 @@ export EDITOR="${EDITOR:-nvim}"
 export VISUAL="${VISUAL:-$EDITOR}"
 export PAGER="${PAGER:-less}"
 export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
-export P2020_IDENTITY_CLIENT_ID=w3HJcYMCH9pZ
-export P2020_IDENTITY_CLIENT_SECRET=z6yccixe070A4XqKFRKQ
 
 typeset -U path PATH
 path=("$HOME/.local/bin" "$HOME/bin" "$GOPATH/bin" "$HOME/.cargo/bin" $path)

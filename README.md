@@ -253,13 +253,8 @@ ssh -T git@github.com
 The Git configuration already delegates `github.com` credentials to `gh`, so
 `gh auth setup-git` is unnecessary and may replace the portable helper command.
 
-The SSH configuration expects the existing work key at `~/.ssh/git_key` and
-the commercial GitHub key at `~/.ssh/git_commercial`. Add passphrases to the
-Keychain without placing key material in this repository:
-
 ```bash
 ssh-add --apple-use-keychain ~/.ssh/git_key
-ssh-add --apple-use-keychain ~/.ssh/git_commercial
 ```
 
 Internal work aliases and proxy routes remain in `config/ssh/config`; they will
