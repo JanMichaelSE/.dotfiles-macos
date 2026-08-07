@@ -59,6 +59,8 @@ tap "nikitabobko/tap", trusted: { cask: "aerospace" }
 cask "ghostty"
 cask "vivaldi"
 cask "chatgpt"
+cask "claude"
+cask "claude-code"
 cask "discord"
 cask "docker-desktop"
 cask "intellij-idea"

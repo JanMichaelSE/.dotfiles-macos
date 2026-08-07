@@ -38,6 +38,7 @@ unmanaged_app_name() {
     ghostty) printf '%s\n' 'Ghostty.app' ;;
     vivaldi) printf '%s\n' 'Vivaldi.app' ;;
     chatgpt) printf '%s\n' 'ChatGPT.app' ;;
+    claude) printf '%s\n' 'Claude.app' ;;
     docker-desktop) printf '%s\n' 'Docker.app' ;;
     intellij-idea) printf '%s\n' 'IntelliJ IDEA.app' ;;
     visual-studio-code) printf '%s\n' 'Visual Studio Code.app' ;;

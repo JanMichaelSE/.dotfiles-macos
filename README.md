@@ -125,6 +125,8 @@ system-wide runtime installation or a `curl | shell` version manager.
 - Ghostty
 - Vivaldi
 - ChatGPT
+- Claude Desktop
+- Claude Code CLI
 - Discord
 - Docker Desktop
 - IntelliJ IDEA Ultimate
