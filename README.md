@@ -189,7 +189,7 @@ dependencies, including partially missing `node_modules` directories. Existing
 TPM checkouts are reused; an unrelated object at the TPM path causes a clear
 failure instead of being replaced.
 
-The Git configuration keeps the repository's existing author identity, uses
+The Git configuration leaves author identity to the local machine, uses
 the macOS Keychain as the general HTTPS credential store, and delegates
 `github.com` credentials to the `gh` command without a machine-specific binary
 path. SSH adds identities to the agent and stores their passphrases in the
@@ -263,8 +263,6 @@ The Git configuration already delegates `github.com` credentials to `gh`, so
 ssh-add --apple-use-keychain ~/.ssh/git_key
 ```
 
-Internal work aliases and proxy routes remain in `config/ssh/config`; they will
-only connect when the required corporate network or VPN is available.
 
 ## Updates
 
