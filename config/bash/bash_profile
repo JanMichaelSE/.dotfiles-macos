@@ -5,3 +5,8 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
 fi
 
 [[ -r "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/mike/.lmstudio/bin"
+# End of LM Studio CLI section
+
