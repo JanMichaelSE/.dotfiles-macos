@@ -21,3 +21,10 @@ path=(
   $path
 )
 export PATH
+
+# >>> phoenix mobile dev tools >>>
+# Added by gryphon-gym scripts/mobile-dev-setup.sh for the member portal's
+# Expo app. Delete this block to undo.
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+# <<< phoenix mobile dev tools <<<

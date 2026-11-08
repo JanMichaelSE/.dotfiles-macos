@@ -30,13 +30,13 @@ persistent-workspaces = ['1', '2', '3', '4', '5']
 # a window, including when applications are restored after a login.
 on-window-detected = [
   { if.app-id = 'com.openai.codex', run = 'move-node-to-workspace 1' },
-  { if.app-id = 'com.mitchellh.ghostty', run = 'move-node-to-workspace 1' },
+  { if.app-id = 'com.mitchellh.ghostty', run = 'move-node-to-workspace 4' },
   { if.app-id = 'com.anthropic.claudefordesktop', run = 'move-node-to-workspace 1' },
   { if.app-id = 'com.vivaldi.Vivaldi', run = 'move-node-to-workspace 2' },
   { if.app-id = 'notion.id', run = 'move-node-to-workspace 3' },
   { if.app-id = 'net.whatsapp.WhatsApp', run = 'move-node-to-workspace 3' },
   { if.app-id = 'com.hnc.Discord', run = 'move-node-to-workspace 3' },
-  { if.app-id = 'com.spotify.client', run = 'move-node-to-workspace 4' },
+  { if.app-id = 'com.spotify.client', run = 'move-node-to-workspace 5' },
 ]
 
 # Add subtle visual separation between windows and monitor edges. Adjust these

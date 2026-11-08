@@ -105,3 +105,8 @@ command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
 
 # A lightweight prompt for the supported fallback shell.
 PS1='\[\e[38;5;35m\]\t \[\e[38;5;33m\]\h:\w\[\e[0m\]\n> '
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/mike/.lmstudio/bin"
+# End of LM Studio CLI section
+
