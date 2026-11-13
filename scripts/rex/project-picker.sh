@@ -61,9 +61,12 @@ selection="$({
   --bind='ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up' \
   --bind='ctrl-/:toggle-preview' \
   --color="$(IFS=,; printf '%s' "${colors[*]}")"
-)" || exit 0
+)" || true
 
-[[ -n "${selection}" ]] || exit 0
+if [[ -z "${selection}" ]]; then
+  rex focus -s "${target_session}" "${target_block}" >/dev/null
+  exit 0
+fi
 project="${selection/#\~/${HOME}}"
 
 # Like tmux respawn-pane: split the original pane, then close it, so the new
