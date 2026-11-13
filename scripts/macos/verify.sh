@@ -97,6 +97,7 @@ for file in \
   config/borders/bordersrc \
   config/zsh/zsh_plugins.txt \
   config/ghostty/config.ghostty \
+  config/rex/init.lua \
   config/git/gitconfig \
   config/git/gitignore_global \
   config/ssh/config; do

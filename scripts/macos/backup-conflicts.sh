@@ -37,6 +37,7 @@ ${HOME}/.config/ghostty/config
 ${HOME}/.config/ghostty/config.ghostty
 ${HOME}/.ssh/config
 ${HOME}/.tmux.conf
+${HOME}/.config/rex/init.lua
 ${HOME}/.gitconfig
 ${HOME}/.gitignore_global
 ${HOME}/.config/lazygit/config.yml
