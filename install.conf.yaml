@@ -35,5 +35,6 @@
     ~/.config/bat: bat
     ~/.config/mise/config.toml: config/mise/config.toml
     ~/.config/aerospace/aerospace.toml: config/aerospace/aerospace.toml
+    ~/.claude/statusline.sh: config/claude/statusline.sh
     ~/.config/borders/bordersrc: config/borders/bordersrc
     ~/Pictures/Wallpapers: config/backdrop/wallpapers
