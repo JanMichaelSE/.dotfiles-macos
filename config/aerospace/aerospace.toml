@@ -31,6 +31,7 @@ persistent-workspaces = ['1', '2', '3', '4', '5']
 on-window-detected = [
   { if.app-id = 'com.openai.codex', run = 'move-node-to-workspace 1' },
   { if.app-id = 'com.mitchellh.ghostty', run = 'move-node-to-workspace 4' },
+  { if.app-id = 'com.superlogical.rex', run = 'move-node-to-workspace 4' },
   { if.app-id = 'com.anthropic.claudefordesktop', run = 'move-node-to-workspace 1' },
   { if.app-id = 'com.vivaldi.Vivaldi', run = 'move-node-to-workspace 2' },
   { if.app-id = 'notion.id', run = 'move-node-to-workspace 3' },
