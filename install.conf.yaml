@@ -36,5 +36,6 @@
     ~/.config/mise/config.toml: config/mise/config.toml
     ~/.config/aerospace/aerospace.toml: config/aerospace/aerospace.toml
     ~/.claude/statusline.sh: config/claude/statusline.sh
+    ~/.claude/keybindings.json: config/claude/keybindings.json
     ~/.config/borders/bordersrc: config/borders/bordersrc
     ~/Pictures/Wallpapers: config/backdrop/wallpapers
